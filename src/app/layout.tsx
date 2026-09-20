@@ -17,9 +17,9 @@ const mono = JetBrains_Mono({
   variable: "--font-mono",
 });
 
-const TITLE = "Youssef Bouz — Founder & CEO, GCC Brokers";
+const TITLE = "Youssef Bouz — Founder & Manager, GCC Brokers";
 const DESCRIPTION =
-  "Founder and chief executive of GCC Brokers, a multi-asset brokerage in Dubai running A-Book STP execution on infrastructure built in-house.";
+  "Founder and manager of GCC Brokers, a multi-asset brokerage in Dubai running STP execution on infrastructure built in-house.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://bouz.me"),

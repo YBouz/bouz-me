@@ -1,13 +1,15 @@
+import Image from "next/image";
 import { ArrowUpRight, Mail } from "lucide-react";
 
 import { GitHubIcon, LinkedInIcon, XIcon } from "@/components/icons";
 import { LocalTime } from "@/components/local-time";
+import ybMark from "@/images/yb-mark.png";
 
 const VENTURE_FACTS = [
   { label: "Established", value: "2016" },
   { label: "Regulation", value: "FSC" },
   { label: "Instruments", value: "100+" },
-  { label: "Execution", value: "A-Book STP" },
+  { label: "Execution", value: "STP" },
 ];
 
 const LINKS = [
@@ -31,12 +33,20 @@ export default function Page() {
       <div className="relative mx-auto flex min-h-dvh w-full max-w-3xl flex-col px-6 py-10 sm:px-8 sm:py-12">
         {/* Status line */}
         <header className="enter flex items-center justify-between gap-4 border-b border-border pb-4">
-          <p className={LABEL}>
-            <span className="sm:hidden">Dubai, UAE</span>
-            <span className="hidden sm:inline">
-              Dubai &middot; United Arab Emirates
-            </span>
-          </p>
+          <div className="flex items-center gap-3">
+            <Image
+              src={ybMark}
+              alt="Youssef Bouz"
+              priority
+              className="h-6 w-auto"
+            />
+            <p className={LABEL}>
+              <span className="sm:hidden">Dubai, UAE</span>
+              <span className="hidden sm:inline">
+                Dubai &middot; United Arab Emirates
+              </span>
+            </p>
+          </div>
           <p
             className={LABEL + " whitespace-nowrap"}
             aria-label="Local time in Dubai"
@@ -50,7 +60,7 @@ export default function Page() {
           className="enter pt-12 sm:pt-16"
           style={{ animationDelay: "60ms" }}
         >
-          <p className={LABEL}>Founder &amp; Chief Executive</p>
+          <p className={LABEL}>Founder &amp; Manager</p>
           <h1 className="mt-4 text-balance text-4xl font-semibold tracking-tight sm:text-6xl">
             Youssef Bouz
           </h1>
@@ -97,7 +107,7 @@ export default function Page() {
                   GCC Brokers
                 </h2>
                 <p className="mt-3 max-w-xl text-pretty text-[0.9375rem] leading-relaxed text-muted-foreground">
-                  Forex, metals and indices with A-Book STP execution routed to
+                  Forex, metals and indices with STP execution routed to
                   institutional liquidity — on a stack we build and operate
                   ourselves rather than rent.
                 </p>

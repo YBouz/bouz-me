@@ -1,65 +1,54 @@
-# Minimalist CV [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FBartoszJarocki%2Fcv)
+# bouz.me
 
-Simple web app that renders minimalist CV with print-friendly layout - copy for me!
+Single-page personal card for Youssef Bouz — founder and manager of
+[GCC Brokers](https://gccbrokers.com).
 
-Built with Next.js and shadcn/ui, deployed on Vercel.
+Next.js 14 (App Router) + Tailwind, statically rendered, deployed on Vercel
+at [bouz.me](https://bouz.me).
 
-# Features
+## Layout
 
-- Setup only takes a few minutes [single config file](./src/data/resume-data.tsx)
-- Built using Next.js 14, React, Typescript, Shadcn/ui, TailwindCss
-- Auto generated Layout
-- Responsive for different devices
-- Optimized for Next.js and Vercel
+Everything lives in one route. There is no CMS and no content directory —
+edit the page directly.
 
-# Getting Started Locally
+| Path | What it holds |
+| --- | --- |
+| `src/app/page.tsx` | The whole card: identity, background, the GCC Brokers block, links |
+| `src/app/layout.tsx` | Fonts, metadata, Open Graph |
+| `src/app/globals.css` | Palette tokens, the grid backdrop, entry animation |
+| `src/components/local-time.tsx` | Dubai wall-clock in the status line |
+| `src/images/yb-mark.png` | YB monogram used in the header |
 
-1. Clone this repository to your local machine:
+Icons are wired through the App Router file conventions: `src/app/icon.png`
+(tab), `src/app/apple-icon.png` (home screen), `src/app/opengraph-image.png`
+(link previews). Replacing any of them is a file swap — no code change.
 
-   ```bash
-   git clone https://github.com/BartoszJarocki/cv.git
-   ```
+## Palette
 
-2. Move to the cloned directory
+Tokens are defined once on `:root` in `globals.css`.
 
-   ```bash
-   cd cv
-   ```
+| Token | Value | Source |
+| --- | --- | --- |
+| `--accent` | `#B08D57` | Personal brand gold |
+| `--foreground` | near-white | — |
+| `--background` | near-black, navy cast | — |
 
-3. Install dependencies:
+The brand pack (charcoal `#2B2B2B`, cream `#EBE9E3`, gold `#B08D57`) lives
+outside this repo in OneDrive under `99-Private/yb-brand`.
 
-   ```bash
-   yarn install
-   ```
+## Claims about GCC Brokers
 
-4. Start the local Server:
+The figures in the venture block — FSC regulated, established 2016, 100+
+instruments, STP execution — are taken from gccbrokers.com's own published
+copy. Keep them in step with that site rather than editing them here in
+isolation.
 
-   ```bash
-   yarn dev
-   ```
+## Local
 
-5. Open the [Config file](./src/data/resume-data.tsx) and make changes
-
-# Run with Docker
-
-Build the container
-
-```
-docker compose build
-```
-
-Run the container
-
-```
-docker compose up -d
+```bash
+yarn install
+yarn dev        # http://localhost:3000
+yarn build      # must pass clean before pushing
 ```
 
-Stop the Container
-
-```
-docker compose down 
-```
-
-# License
-
-[MIT](https://choosealicense.com/licenses/mit/)
+Pushing to `main` deploys to production via Vercel.
