@@ -1,24 +1,30 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+/*
+ * Palette. Charcoal/cream/gold come from the personal brand pack; the near
+ * black carries a navy cast so the card reads as a market terminal.
+ */
+@theme {
+  --color-background: #060a0f;
+  --color-surface: #0c1118;
+  --color-surface-raised: #121821;
+  --color-border: #1e252f;
+  --color-border-strong: #313b49;
+  --color-foreground: #f6f7f9;
+  --color-muted-foreground: #96a2b0;
+  --color-accent: #b08d57;
+  --color-link: #72acf3;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, SFMono-Regular, monospace;
+}
 
 @layer base {
-  :root {
-    /* Derived from the GCC Brokers palette: navy #0E1E32, gold #F59E0B. */
-    --background: 215 45% 4%;
-    --surface: 215 32% 7%;
-    --surface-raised: 215 28% 10%;
-    --border: 215 22% 15%;
-    --border-strong: 215 20% 24%;
-    --foreground: 210 20% 97%;
-    --muted-foreground: 213 14% 64%;
-    --accent: 36 36% 52%;
-    --accent-foreground: 215 45% 4%;
-    --link: 213 84% 70%;
-  }
-
-  * {
-    border-color: hsl(var(--border));
+  /* v4 defaults borders to currentColor; keep the old explicit default. */
+  *,
+  ::after,
+  ::before {
+    border-color: var(--color-border);
   }
 
   html {
@@ -28,18 +34,26 @@
   body {
     @apply bg-background text-foreground antialiased;
     background-image:
-      radial-gradient(60rem 40rem at 10% -12%, hsl(var(--accent) / 0.09), transparent 60%),
-      radial-gradient(52rem 36rem at 94% 4%, hsl(var(--link) / 0.07), transparent 62%);
+      radial-gradient(
+        60rem 40rem at 10% -12%,
+        color-mix(in srgb, var(--color-accent) 9%, transparent),
+        transparent 60%
+      ),
+      radial-gradient(
+        52rem 36rem at 94% 4%,
+        color-mix(in srgb, var(--color-link) 7%, transparent),
+        transparent 62%
+      );
     background-attachment: fixed;
   }
 
   ::selection {
-    background-color: hsl(var(--accent) / 0.3);
-    color: hsl(var(--foreground));
+    background-color: color-mix(in srgb, var(--color-accent) 30%, transparent);
+    color: var(--color-foreground);
   }
 
   :focus-visible {
-    outline: 2px solid hsl(var(--accent));
+    outline: 2px solid var(--color-accent);
     outline-offset: 3px;
     border-radius: 2px;
   }
@@ -49,11 +63,18 @@
   /* Fine trading-terminal grid, masked so it fades out down the page. */
   .grid-field {
     background-image:
-      linear-gradient(to right, hsl(var(--border-strong) / 0.55) 1px, transparent 1px),
-      linear-gradient(to bottom, hsl(var(--border-strong) / 0.55) 1px, transparent 1px);
+      linear-gradient(
+        to right,
+        color-mix(in srgb, var(--color-border-strong) 55%, transparent) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        color-mix(in srgb, var(--color-border-strong) 55%, transparent) 1px,
+        transparent 1px
+      );
     background-size: 64px 64px;
     background-position: center top;
-    -webkit-mask-image: radial-gradient(72rem 46rem at 50% 0%, #000 0%, transparent 78%);
     mask-image: radial-gradient(72rem 46rem at 50% 0%, #000 0%, transparent 78%);
   }
 

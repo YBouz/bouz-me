@@ -8,13 +8,13 @@ import "./globals.css";
 const sans = Inter({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-sans",
+  variable: "--font-inter",
 });
 
 const mono = JetBrains_Mono({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-mono",
+  variable: "--font-jetbrains",
 });
 
 const TITLE = "Youssef Bouz — Founder & Manager, GCC Brokers";
