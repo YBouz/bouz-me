@@ -1,200 +1,168 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Card, CardHeader, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { CommandMenu } from "@/components/command-menu";
-import { Metadata } from "next";
-import { Section } from "@/components/ui/section";
-import { GlobeIcon, MailIcon, PhoneIcon } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { RESUME_DATA } from "@/data/resume-data";
-// import { ProjectCard } from "@/components/project-card";
+import { ArrowUpRight, Mail } from "lucide-react";
 
-export const metadata: Metadata = {
-  title: `${RESUME_DATA.name} | ${RESUME_DATA.about}`,
-  description: RESUME_DATA.summary,
-};
+import { GitHubIcon, LinkedInIcon, XIcon } from "@/components/icons";
+import { LocalTime } from "@/components/local-time";
+
+const VENTURE_FACTS = [
+  { label: "Established", value: "2016" },
+  { label: "Regulation", value: "FSC" },
+  { label: "Instruments", value: "100+" },
+  { label: "Execution", value: "A-Book STP" },
+];
+
+const LINKS = [
+  { label: "Email", href: "mailto:youssef@bouz.me", icon: Mail },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/ybouz/", icon: LinkedInIcon },
+  { label: "X", href: "https://x.com/YBooouz", icon: XIcon },
+  { label: "GitHub", href: "https://github.com/YBouz", icon: GitHubIcon },
+];
+
+const LABEL =
+  "font-mono text-[0.6875rem] uppercase tracking-[0.18em] text-muted-foreground";
 
 export default function Page() {
   return (
-    <main className="container relative mx-auto scroll-my-12 overflow-auto p-4 print:p-12 md:p-16">
-      <section className="mx-auto w-full max-w-2xl space-y-8 bg-white print:space-y-6">
-        <div className="flex items-center justify-between">
-          <div className="flex-1 space-y-2">
-            <h1 className="text-2xl font-bold">{RESUME_DATA.name}</h1>
-            <p className="max-w-md text-pretty  text-sm text-muted-foreground">
-              {RESUME_DATA.about}
-            </p>
-            <p className="max-w-md items-center text-pretty text-xs text-muted-foreground">
-              <a
-                className="inline-flex gap-x-1.5 align-baseline leading-none hover:underline"
-                href={RESUME_DATA.locationLink}
-                target="_blank"
-              >
-                <GlobeIcon className="size-3" />
-                {RESUME_DATA.location}
-              </a>
-            </p>
-            <div className="flex gap-x-1 pt-1  text-sm text-muted-foreground print:hidden">
-              {RESUME_DATA.contact.email ? (
-                <Button
-                  className="size-8"
-                  variant="outline"
-                  size="icon"
-                  asChild
-                >
-                  <a href={`mailto:${RESUME_DATA.contact.email}`}>
-                    <MailIcon className="size-4" />
-                  </a>
-                </Button>
-              ) : null}
-              {RESUME_DATA.contact.tel ? (
-                <Button
-                  className="size-8"
-                  variant="outline"
-                  size="icon"
-                  asChild
-                >
-                  <a href={`tel:${RESUME_DATA.contact.tel}`}>
-                    <PhoneIcon className="size-4" />
-                  </a>
-                </Button>
-              ) : null}
-              {RESUME_DATA.contact.social.map((social) => (
-                <Button
-                  key={social.name}
-                  className="size-8"
-                  variant="outline"
-                  size="icon"
-                  asChild
-                >
-                  <a href={social.url}>
-                    <social.icon className="size-4" />
-                  </a>
-                </Button>
-              ))}
-            </div>
-            <div className="hidden flex-col gap-x-1  text-sm text-muted-foreground print:flex">
-              {RESUME_DATA.contact.email ? (
-                <a href={`mailto:${RESUME_DATA.contact.email}`}>
-                  <span className="underline">{RESUME_DATA.contact.email}</span>
-                </a>
-              ) : null}
-              {RESUME_DATA.contact.tel ? (
-                <a href={`tel:${RESUME_DATA.contact.tel}`}>
-                  <span className="underline">{RESUME_DATA.contact.tel}</span>
-                </a>
-              ) : null}
-            </div>
-          </div>
-
-          <Avatar className="size-28">
-            <AvatarImage alt={RESUME_DATA.name} src={RESUME_DATA.avatarUrl} />
-            <AvatarFallback>{RESUME_DATA.initials}</AvatarFallback>
-          </Avatar>
-        </div>
-        <Section>
-          <h2 className="text-xl font-bold">About</h2>
-          <p className="text-pretty text-sm text-muted-foreground">
-            {RESUME_DATA.summary}
-          </p>
-        </Section>
-        <Section>
-          <h2 className="text-xl font-bold">Work Experience</h2>
-          {RESUME_DATA.work.map((work) => {
-            return (
-              <Card key={work.company}>
-                <CardHeader>
-                  <div className="flex items-center justify-between gap-x-2 text-base">
-                    <h3 className="inline-flex items-center justify-center gap-x-1 font-semibold leading-none">
-                      <a className="hover:underline" href={work.link}>
-                        {work.company}
-                      </a>
-
-                      <span className="inline-flex gap-x-1">
-                        {work.badges.map((badge) => (
-                          <Badge
-                            variant="secondary"
-                            className="align-middle text-xs"
-                            key={badge}
-                          >
-                            {badge}
-                          </Badge>
-                        ))}
-                      </span>
-                    </h3>
-                    <div className="text-sm tabular-nums text-gray-500">
-                      {work.start} - {work.end}
-                    </div>
-                  </div>
-
-                  <h4 className=" text-sm leading-none">{work.title}</h4>
-                </CardHeader>
-                <CardContent className="mt-2 text-xs">
-                  {work.description}
-                </CardContent>
-              </Card>
-            );
-          })}
-        </Section>
-        <Section>
-          <h2 className="text-xl font-bold">Education</h2>
-          {RESUME_DATA.education.map((education) => {
-            return (
-              <Card key={education.school}>
-                <CardHeader>
-                  <div className="flex items-center justify-between gap-x-2 text-base">
-                    <h3 className="font-semibold leading-none">
-                      {education.school}
-                    </h3>
-                    <div className="text-sm tabular-nums text-gray-500">
-                      {education.start} - {education.end}
-                    </div>
-                  </div>
-                </CardHeader>
-                <CardContent className="mt-2">{education.degree}</CardContent>
-              </Card>
-            );
-          })}
-        </Section>
-        <Section>
-          <h2 className="text-xl font-bold">Skills</h2>
-          <div className="flex flex-wrap gap-1">
-            {RESUME_DATA.skills.map((skill) => {
-              return <Badge key={skill}>{skill}</Badge>;
-            })}
-          </div>
-        </Section>
-
-        {/* <Section className="print-force-new-page scroll-mb-16">
-          <h2 className="text-xl font-bold">Projects</h2>
-          <div className="-mx-3 grid grid-cols-1 gap-3 print:grid-cols-3 print:gap-2 md:grid-cols-2 lg:grid-cols-3">
-            {RESUME_DATA.projects.map((project) => {
-              return (
-                <ProjectCard
-                  key={project.title}
-                  title={project.title}
-                  description={project.description}
-                  tags={project.techStack}
-                  link={"link" in project ? project.link.href : undefined}
-                />
-              );
-            })}
-          </div>
-        </Section> */}
-      </section>
-
-      <CommandMenu
-        links={[
-          {
-            url: RESUME_DATA.personalWebsiteUrl,
-            title: "Personal Website",
-          },
-          ...RESUME_DATA.contact.social.map((socialMediaLink) => ({
-            url: socialMediaLink.url,
-            title: socialMediaLink.name,
-          })),
-        ]}
+    <main className="relative min-h-dvh overflow-hidden">
+      <div
+        aria-hidden
+        className="grid-field pointer-events-none absolute inset-0"
       />
+
+      <div className="relative mx-auto flex min-h-dvh w-full max-w-3xl flex-col px-6 py-10 sm:px-8 sm:py-12">
+        {/* Status line */}
+        <header className="enter flex items-center justify-between gap-4 border-b border-border pb-4">
+          <p className={LABEL}>
+            <span className="sm:hidden">Dubai, UAE</span>
+            <span className="hidden sm:inline">
+              Dubai &middot; United Arab Emirates
+            </span>
+          </p>
+          <p
+            className={LABEL + " whitespace-nowrap"}
+            aria-label="Local time in Dubai"
+          >
+            <LocalTime />
+          </p>
+        </header>
+
+        {/* Identity */}
+        <section
+          className="enter pt-12 sm:pt-16"
+          style={{ animationDelay: "60ms" }}
+        >
+          <p className={LABEL}>Founder &amp; Chief Executive</p>
+          <h1 className="mt-4 text-balance text-4xl font-semibold tracking-tight sm:text-6xl">
+            Youssef Bouz
+          </h1>
+          <p className="mt-4 text-pretty text-lg text-muted-foreground sm:text-xl">
+            I build and run{" "}
+            <span className="text-foreground">GCC Brokers</span> — a multi-asset
+            brokerage, and the infrastructure underneath it.
+          </p>
+        </section>
+
+        {/* Background */}
+        <section
+          className="enter mt-10 flex flex-col gap-4 text-[0.9375rem] leading-relaxed text-muted-foreground sm:mt-12 sm:text-base"
+          style={{ animationDelay: "120ms" }}
+        >
+          <p>
+            Computer science at the American University of Sharjah, then an MBA
+            in global business. I came up through engineering and never really
+            left it — I still write the software the brokerage runs on.
+          </p>
+          <p>
+            Most of that work sits out of sight: execution and clearing
+            infrastructure, risk and reporting systems, and the internal tooling
+            that keeps a multi-entity brokerage honest about its own numbers.
+          </p>
+        </section>
+
+        {/* Principal venture */}
+        <section
+          className="enter mt-10 sm:mt-14"
+          style={{ animationDelay: "180ms" }}
+        >
+          <p className={LABEL}>Principal venture</p>
+
+          <a
+            href="https://gccbrokers.com"
+            target="_blank"
+            rel="noreferrer"
+            className="group mt-4 block overflow-hidden rounded-lg border border-border bg-surface/70 transition-colors hover:border-border-strong hover:bg-surface-raised/70"
+          >
+            <div className="flex flex-col gap-5 p-6 sm:p-7">
+              <div>
+                <h2 className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
+                  GCC Brokers
+                </h2>
+                <p className="mt-3 max-w-xl text-pretty text-[0.9375rem] leading-relaxed text-muted-foreground">
+                  Forex, metals and indices with A-Book STP execution routed to
+                  institutional liquidity — on a stack we build and operate
+                  ourselves rather than rent.
+                </p>
+              </div>
+
+              <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-md border border-border bg-border sm:grid-cols-4">
+                {VENTURE_FACTS.map((fact) => (
+                  <div
+                    key={fact.label}
+                    className="flex min-w-0 flex-col gap-1 bg-surface px-4 py-3"
+                  >
+                    <dt className={LABEL}>{fact.label}</dt>
+                    <dd className="truncate font-mono text-sm text-foreground">
+                      {fact.value}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+
+            <div className="flex items-center justify-between gap-4 border-t border-border bg-surface/40 px-6 py-4 transition-colors group-hover:bg-surface-raised/60 sm:px-7">
+              <span className="font-mono text-xs tracking-wide text-accent">
+                gccbrokers.com
+              </span>
+              <span className="inline-flex items-center gap-2 font-mono text-[0.6875rem] uppercase tracking-[0.18em] text-muted-foreground transition-colors group-hover:text-foreground">
+                Visit
+                <ArrowUpRight
+                  aria-hidden
+                  className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                />
+              </span>
+            </div>
+          </a>
+        </section>
+
+        {/* Contact */}
+        <section
+          className="enter mt-10 pb-14 sm:mt-12"
+          style={{ animationDelay: "240ms" }}
+        >
+          <p className={LABEL}>Elsewhere</p>
+          <ul className="mt-4 flex flex-wrap gap-2">
+            {LINKS.map((link) => (
+              <li key={link.label}>
+                <a
+                  href={link.href}
+                  target={link.href.startsWith("mailto:") ? undefined : "_blank"}
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 rounded-md border border-border bg-surface/60 px-3.5 py-2 text-sm text-muted-foreground transition-colors hover:border-border-strong hover:bg-surface-raised hover:text-foreground"
+                >
+                  <link.icon aria-hidden className="size-4" />
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <footer className="enter mt-auto flex flex-col gap-2 border-t border-border pt-6 sm:flex-row sm:items-center sm:justify-between">
+          <p className={LABEL}>
+            GCC Brokers Ltd. &middot; FSC regulated &middot; Est. 2016
+          </p>
+          <p className={LABEL}>bouz.me</p>
+        </footer>
+      </div>
     </main>
   );
 }

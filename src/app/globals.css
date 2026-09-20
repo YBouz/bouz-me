@@ -4,77 +4,92 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 224 71.4% 4.1%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 224 71.4% 4.1%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 224 71.4% 4.1%;
-
-    --primary: 220.9 39.3% 11%;
-    --primary-foreground: 210 20% 98%;
-
-    --secondary: 220 14.3% 95.9%;
-    --secondary-foreground: 220.9 39.3% 11%;
-
-    --muted: 220 14.3% 95.9%;
-    --muted-foreground: 220 8.9% 46.1%;
-
-    --accent: 220 14.3% 95.9%;
-    --accent-foreground: 220.9 39.3% 11%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 20% 98%;
-
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 224 71.4% 4.1%;
-
-    --radius: 0.5rem;
+    /* Derived from the GCC Brokers palette: navy #0E1E32, gold #F59E0B. */
+    --background: 215 45% 4%;
+    --surface: 215 32% 7%;
+    --surface-raised: 215 28% 10%;
+    --border: 215 22% 15%;
+    --border-strong: 215 20% 24%;
+    --foreground: 210 20% 97%;
+    --muted-foreground: 213 14% 64%;
+    --accent: 38 92% 52%;
+    --accent-foreground: 215 45% 4%;
+    --link: 213 84% 70%;
   }
 
-  .dark {
-    --background: 224 71.4% 4.1%;
-    --foreground: 210 20% 98%;
-
-    --card: 224 71.4% 4.1%;
-    --card-foreground: 210 20% 98%;
-
-    --popover: 224 71.4% 4.1%;
-    --popover-foreground: 210 20% 98%;
-
-    --primary: 210 20% 98%;
-    --primary-foreground: 220.9 39.3% 11%;
-
-    --secondary: 215 27.9% 16.9%;
-    --secondary-foreground: 210 20% 98%;
-
-    --muted: 215 27.9% 16.9%;
-    --muted-foreground: 217.9 10.6% 64.9%;
-
-    --accent: 215 27.9% 16.9%;
-    --accent-foreground: 210 20% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 20% 98%;
-
-    --border: 215 27.9% 16.9%;
-    --input: 215 27.9% 16.9%;
-    --ring: 216 12.2% 83.9%;
-  }
-}
-
-@layer base {
   * {
-    @apply border-border;
+    border-color: hsl(var(--border));
   }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
+    background-image:
+      radial-gradient(60rem 40rem at 10% -12%, hsl(var(--accent) / 0.09), transparent 60%),
+      radial-gradient(52rem 36rem at 94% 4%, hsl(var(--link) / 0.07), transparent 62%);
+    background-attachment: fixed;
+  }
+
+  ::selection {
+    background-color: hsl(var(--accent) / 0.3);
+    color: hsl(var(--foreground));
+  }
+
+  :focus-visible {
+    outline: 2px solid hsl(var(--accent));
+    outline-offset: 3px;
+    border-radius: 2px;
   }
 }
 
-.print-force-new-page {
-  page-break-before: always;
+@layer components {
+  /* Fine trading-terminal grid, masked so it fades out down the page. */
+  .grid-field {
+    background-image:
+      linear-gradient(to right, hsl(var(--border-strong) / 0.55) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--border-strong) / 0.55) 1px, transparent 1px);
+    background-size: 64px 64px;
+    background-position: center top;
+    -webkit-mask-image: radial-gradient(72rem 46rem at 50% 0%, #000 0%, transparent 78%);
+    mask-image: radial-gradient(72rem 46rem at 50% 0%, #000 0%, transparent 78%);
+  }
+
+  .enter {
+    animation: enter 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+}
+
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.2;
+  }
+}
+
+.pulse-dot {
+  animation: pulse-dot 2.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enter,
+  .pulse-dot {
+    animation: none;
+  }
 }

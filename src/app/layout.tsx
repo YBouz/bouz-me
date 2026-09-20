@@ -1,20 +1,50 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
-import { Inter } from "next/font/google";
-
-import "./globals.css";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import React from "react";
 
-export const metadata: Metadata = {
-  title: "Youssef Bouz",
-  description: "Operations Manager / Software Engineer",
-};
+import "./globals.css";
 
-// If loading a variable font, you don't need to specify the font weight
-const inter = Inter({
+const sans = Inter({
   subsets: ["latin"],
   display: "swap",
+  variable: "--font-sans",
 });
+
+const mono = JetBrains_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-mono",
+});
+
+const TITLE = "Youssef Bouz — Founder & CEO, GCC Brokers";
+const DESCRIPTION =
+  "Founder and chief executive of GCC Brokers, a multi-asset brokerage in Dubai running A-Book STP execution on infrastructure built in-house.";
+
+export const metadata: Metadata = {
+  metadataBase: new URL("https://bouz.me"),
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: "https://bouz.me",
+    siteName: "Youssef Bouz",
+    locale: "en_US",
+    type: "profile",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    creator: "@YBooouz",
+  },
+  alternates: { canonical: "https://bouz.me" },
+};
+
+export const viewport = {
+  themeColor: "#050a10",
+};
 
 export default function RootLayout({
   children,
@@ -22,8 +52,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={inter.className}>
-      <body>{children}</body>
+    <html lang="en" className={sans.variable + " " + mono.variable}>
+      <body className="font-sans">{children}</body>
       <Analytics />
     </html>
   );
